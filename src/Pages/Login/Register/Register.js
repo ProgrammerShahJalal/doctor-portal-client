@@ -1,10 +1,13 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import useFirebase from '../../../hooks/useFirebase';
 import register from '../../../images/login.png';
 
 const Register = () => {
     const [loginData, setLoginData] = useState({});
+
+    const { registerUser, isLoading } = useFirebase();
 
     const handleOnChange = e => {
         const field = e.target.name;
@@ -19,7 +22,7 @@ const Register = () => {
             alert('Your password did not match');
             return;
         }
-
+        registerUser(loginData.email, loginData.password);
         e.preventDefault();
     }
     return (
@@ -29,7 +32,7 @@ const Register = () => {
                     <Typography variant="body1" gutterBottom>
                         Register
                     </Typography>
-                    <form onSubmit={handleLoginSubmit}>
+                    {!isLoading && <form onSubmit={handleLoginSubmit}>
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
@@ -62,7 +65,8 @@ const Register = () => {
                         <NavLink style={{ textDecoration: 'none' }} to='/login'>
                             <Button variant="text">Already Registered? Please Login</Button>
                         </NavLink>
-                    </form>
+                    </form>}
+                    {isLoading && <CircularProgress />}
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img style={{ width: '100%' }} src={register} alt="" />
