@@ -1,10 +1,15 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, AlertTitle, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import useFirebase from '../../../hooks/useFirebase';
 import login from '../../../images/login.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
+    const { user, loginUser, error, isLoading } = useFirebase();
+
+    const location = useLocation();
+    const history = useHistory();
 
     const handleOnChange = e => {
         const field = e.target.name;
@@ -15,6 +20,9 @@ const Login = () => {
     }
 
     const handleLoginSubmit = e => {
+        loginUser(loginData.email, loginData.password, location, history);
+
+
         e.preventDefault();
     }
     return (
@@ -49,6 +57,15 @@ const Login = () => {
                             <Button variant="text">New User? Please Register</Button>
                         </NavLink>
                     </form>
+                    {isLoading && <CircularProgress />}
+                    {user?.email && <Alert severity="success">
+                        <AlertTitle>Congratulations</AlertTitle>
+                        User logged in — <strong>successfully!</strong>
+                    </Alert>}
+                    {error && <Alert severity="error">
+                        <AlertTitle>Error</AlertTitle>
+                        {error}
+                    </Alert>}
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img style={{ width: '100%' }} src={login} alt="" />
