@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 
 // initialize firebase app
 initializeFirebase();
@@ -12,18 +12,41 @@ const useFirebase = () => {
 
     const auth = getAuth();
 
-    const registerUser = (email, password) => {
+    const signInWithGoogle = (history, location) => {
         setIsLoading(true);
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((result) => {
+        const googleProvider = new GoogleAuthProvider();
+        signInWithPopup(auth, googleProvider)
+            .then(result => {
                 const user = result.user;
                 setUser(user);
                 setError('');
             })
+            .catch(error => {
+                setError(error.message);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
+    }
+    const registerUser = (email, password, name, history) => {
+        setIsLoading(true);
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+                const newUser = { email, displayName: name };
+                setUser(newUser);
+                // send name to firebase after creation
+                updateProfile(auth.currentUser, {
+                    displayName: name
+                }).then(() => { });
+                setError('');
+                history.replace('/');
+            })
             .catch((error) => {
                 setError(error.message);
             })
-            .finally(() => setIsLoading(false));
+            .finally(() => {
+                setIsLoading(false);
+            })
     }
 
     const loginUser = (email, password, location, history) => {
@@ -68,6 +91,7 @@ const useFirebase = () => {
 
     return {
         user,
+        signInWithGoogle,
         registerUser,
         loginUser,
         logout,

@@ -6,7 +6,7 @@ import login from '../../../images/login.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
-    const { user, loginUser, error, isLoading } = useFirebase();
+    const { user, loginUser, error, isLoading, signInWithGoogle } = useFirebase();
 
     const location = useLocation();
     const history = useHistory();
@@ -21,9 +21,11 @@ const Login = () => {
 
     const handleLoginSubmit = e => {
         loginUser(loginData.email, loginData.password, location, history);
-
-
         e.preventDefault();
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(location, history)
     }
     return (
 
@@ -57,6 +59,8 @@ const Login = () => {
                             <Button variant="text">New User? Please Register</Button>
                         </NavLink>
                     </form>
+                    <p>---------Or---------</p>
+                    <Button onClick={handleGoogleSignIn} variant="contained">Google Sign In</Button>
                     {isLoading && <CircularProgress />}
                     {user?.email && <Alert severity="success">
                         <AlertTitle>Congratulations</AlertTitle>

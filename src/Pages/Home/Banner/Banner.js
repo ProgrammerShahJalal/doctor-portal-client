@@ -4,6 +4,7 @@ import bg from '../../../images/bg.png';
 import Grid from '@mui/material/Grid';
 import { Button, Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 
 const Banner = () => {
@@ -27,7 +28,7 @@ const Banner = () => {
                         <Typography sx={{ fontWeight: 'light', mb: 2, fontSize: 15 }} variant="h6" component="div">
                             The Doctors Care Patient Portal is available to all Doctors Care patients. You can access the Doctors Care Patient Portal from any device with Internet.
                         </Typography>
-                        <Button variant="contained">Get Appointment</Button>
+                        <Link to='/appointment' style={{ textDecoration: 'none' }}><Button variant="contained">Get Appointment</Button></Link>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6} style={verticalCenter}>
