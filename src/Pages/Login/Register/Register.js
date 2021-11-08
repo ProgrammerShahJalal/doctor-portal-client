@@ -1,13 +1,13 @@
 import { Alert, AlertTitle, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 import register from '../../../images/login.png';
 
 const Register = () => {
     const [loginData, setLoginData] = useState({});
     const history = useHistory();
-    const { user, error, registerUser, isLoading } = useFirebase();
+    const { user, error, registerUser, isLoading } = useAuth();
 
     const handleOnBlur = e => {
         const field = e.target.name;

@@ -11,33 +11,31 @@ import Navigation from './Shared/Navigation/Navigation';
 
 function App() {
   return (
-    <div className="App">
-      <AuthProvider>
-        <Router>
-          <Navigation></Navigation>
-          <Switch>
-            <Route exact path='/'>
-              <Home></Home>
-            </Route>
-            <Route path='/home'>
-              <Home></Home>
-            </Route>
-            <PrivateRoute path='/appointment'>
-              <Appointment></Appointment>
-            </PrivateRoute>
-            <Route path='/login'>
-              <Login></Login>
-            </Route>
-            <Route path='/register'>
-              <Register></Register>
-            </Route>
-            <Route path='/dashboard'>
-              <Dashboard></Dashboard>
-            </Route>
-          </Switch>
-        </Router>
-      </AuthProvider>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Navigation></Navigation>
+        <Switch>
+          <Route exact path='/'>
+            <Home></Home>
+          </Route>
+          <Route path='/home'>
+            <Home></Home>
+          </Route>
+          <PrivateRoute path='/appointment'>
+            <Appointment></Appointment>
+          </PrivateRoute>
+          <Route path='/login'>
+            <Login></Login>
+          </Route>
+          <Route path='/register'>
+            <Register></Register>
+          </Route>
+          <Route path='/dashboard'>
+            <Dashboard></Dashboard>
+          </Route>
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 

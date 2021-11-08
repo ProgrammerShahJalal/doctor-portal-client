@@ -6,7 +6,7 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from './../../../hooks/useAuth';
 
 const style = {
     position: 'absolute',
@@ -22,7 +22,7 @@ const style = {
 
 const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBookingSuccess }) => {
     const { name, time } = booking;
-    const { user } = useFirebase();
+    const { user } = useAuth();
     const initialInfo = { patientName: user.displayName, email: user.email, phone: '' }
     const [bookingInfo, setBookingInfo] = useState(initialInfo);
 
@@ -39,6 +39,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBooki
         const appointment = {
             ...bookingInfo,
             time,
+            email: user.email,
             serviceName: name,
             date: date.toLocaleDateString()
         }

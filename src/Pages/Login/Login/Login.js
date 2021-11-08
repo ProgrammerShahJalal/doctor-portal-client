@@ -1,12 +1,12 @@
 import { Alert, AlertTitle, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 import login from '../../../images/login.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
-    const { user, loginUser, error, isLoading, signInWithGoogle } = useFirebase();
+    const { user, loginUser, error, isLoading, signInWithGoogle } = useAuth();
 
     const location = useLocation();
     const history = useHistory();
