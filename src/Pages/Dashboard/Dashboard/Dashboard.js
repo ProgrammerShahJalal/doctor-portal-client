@@ -96,6 +96,9 @@ function Dashboard(props) {
                     <Typography variant="h6" noWrap component="div">
                         Dashboard
                     </Typography>
+                    <Typography variant="h6" noWrap component="div">
+                        <Link to='/home' style={{ textDecoration: 'none', color: 'white', marginLeft: '20px' }}>Home</Link>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <Box

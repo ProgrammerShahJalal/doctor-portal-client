@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import doctor from '../../../images/doctor.png'
 import bg from '../../../images/appointment-bg.png'
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import MuiButton from '../../../StyleComponent/MuiButton';
 
 const AppointmentBanner = () => {
     const appointmentBg = {
@@ -31,7 +32,7 @@ const AppointmentBanner = () => {
                         <Typography sx={{ mb: 2, color: 'white', fontWeight: 'light', fontSize: 15 }} variant="h6" component="div">
                             Welcome to Patient Portal, Your Medical Home on the Web. With Patient Portal, <br /> you can connect with your doctor through a convenient, safe and secure.
                         </Typography>
-                        <Button variant="contained">Lear More</Button>
+                        <MuiButton>Lear More</MuiButton>
                     </Box>
                 </Grid>
 
