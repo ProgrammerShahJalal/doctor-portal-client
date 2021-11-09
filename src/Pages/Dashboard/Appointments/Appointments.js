@@ -14,7 +14,7 @@ const Appointments = ({ date }) => {
     const [appointment, setAppointments] = useState([]);
     console.log(user.email)
     useEffect(() => {
-        const url = `http://localhost:5000/appointments?email=${user.email}&date=${date.toLocaleDateString()}`;
+        const url = `https://polar-falls-67924.herokuapp.com/appointments?email=${user.email}&date=${date.toLocaleDateString()}`;
         fetch(url, {
             headers: {
                 'authorization': `Bearer ${token}`
