@@ -9,6 +9,7 @@ const stripePromise = loadStripe('pk_test_51JwIBsFBTfTsSwmz8bqtyXmnIOlnITi40PZxe
 
 const Payment = () => {
     const [appointment, setAppointment] = useState({});
+
     const { appointmentId } = useParams();
     useEffect(() => {
         fetch(`http://localhost:5000/appointments/${appointmentId}`)
@@ -16,14 +17,14 @@ const Payment = () => {
             .then(data => setAppointment(data))
     }, [appointmentId])
     return (
-        <div>
+        <div style={{ textAlign: 'center' }}>
             <h2>Please pay for {appointment.patientName} for {appointment.serviceName}</h2>
             <h4>Pay: ${appointment.price}</h4>
-            <Elements stripe={stripePromise}>
+            {appointment?.price && <Elements stripe={stripePromise}>
                 <CheckoutForm
                     appointment={appointment}
                 />
-            </Elements>
+            </Elements>}
         </div>
     );
 };
