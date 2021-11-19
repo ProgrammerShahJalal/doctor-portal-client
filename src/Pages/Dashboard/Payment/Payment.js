@@ -12,7 +12,7 @@ const Payment = () => {
 
     const { appointmentId } = useParams();
     useEffect(() => {
-        fetch(`http://localhost:5000/appointments/${appointmentId}`)
+        fetch(`https://polar-falls-67924.herokuapp.com/appointments/${appointmentId}`)
             .then(res => res.json())
             .then(data => setAppointment(data))
     }, [appointmentId])
