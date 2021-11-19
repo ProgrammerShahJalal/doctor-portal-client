@@ -17,17 +17,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import DashboardHome from '../DashboardHome/DashboardHome';
-import {
-    Switch,
-    Route,
-    useRouteMatch
-} from "react-router-dom";
-import MakeAdmin from '../MakeAdmin/MakeAdmin';
-import AddDoctor from '../AddDoctor/AddDoctor';
-import AdminRoute from '../../Login/Login/AdminRoute/AdminRoute';
+import { Outlet } from "react-router-dom";
 import useAuth from '../../../hooks/useAuth';
-import Payment from '../Payment/Payment';
 
 
 const drawerWidth = 200;
@@ -35,11 +26,8 @@ const drawerWidth = 200;
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [date, setDate] = React.useState(new Date());
 
     const { admin } = useAuth();
-
-    let { path, url } = useRouteMatch();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -52,12 +40,12 @@ function Dashboard(props) {
             <List>
                 <Link to='/appointment' style={{ textDecoration: 'none' }}><Button style={{ color: 'black' }} variant="text"><i style={{ marginRight: '1rem', color: '#FB6454', fontSize: '20px' }} className="fab fa-servicestack"> </i>Appointment</Button></Link>
 
-                <Link to={`${url}`} style={{ textDecoration: 'none' }}><Button style={{ color: 'black' }} variant="text"><i style={{ marginRight: '1rem', color: '#FB6454', fontSize: '20px' }} className="fas fa-tachometer-alt"></i>Dashboard</Button></Link>
+                <Link to={`/dashboard`} style={{ textDecoration: 'none' }}><Button style={{ color: 'black' }} variant="text"><i style={{ marginRight: '1rem', color: '#FB6454', fontSize: '20px' }} className="fas fa-tachometer-alt"></i>Dashboard</Button></Link>
 
                 {admin && <Box>
-                    <Link to={`${url}/makeAdmin`} style={{ textDecoration: 'none' }}><Button style={{ color: 'black' }} variant="text"><i style={{ marginRight: '1rem', color: '#FB6454', fontSize: '20px' }} className="fas fa-user-shield"></i>Make Admin</Button></Link>
+                    <Link to={`/dashboard/makeAdmin`} style={{ textDecoration: 'none' }}><Button style={{ color: 'black' }} variant="text"><i style={{ marginRight: '1rem', color: '#FB6454', fontSize: '20px' }} className="fas fa-user-shield"></i>Make Admin</Button></Link>
 
-                    <Link to={`${url}/addDoctor`} style={{ textDecoration: 'none' }}><Button style={{ color: 'black' }} variant="text"><i style={{ marginRight: '1rem', color: '#FB6454', fontSize: '20px' }} className="fas fa-user-md"></i>Add Doctor</Button></Link>
+                    <Link to={`/dashboard/addDoctor`} style={{ textDecoration: 'none' }}><Button style={{ color: 'black' }} variant="text"><i style={{ marginRight: '1rem', color: '#FB6454', fontSize: '20px' }} className="fas fa-user-md"></i>Add Doctor</Button></Link>
                 </Box>}
 
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -139,22 +127,9 @@ function Dashboard(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Switch>
-                    <Route exact path={path}>
-                        <DashboardHome
-                            date={date} setDate={setDate}
-                        ></DashboardHome>
-                    </Route>
-                    <Route path={`${path}/payment/:appointmentId`}>
-                        <Payment></Payment>
-                    </Route>
-                    <AdminRoute path={`${path}/makeAdmin`}>
-                        <MakeAdmin></MakeAdmin>
-                    </AdminRoute>
-                    <AdminRoute path={`${path}/addDoctor`}>
-                        <AddDoctor></AddDoctor>
-                    </AdminRoute>
-                </Switch>
+                <Outlet>
+
+                </Outlet>
             </Box>
         </Box>
     );

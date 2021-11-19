@@ -48,16 +48,15 @@ const Appointments = ({ date }) => {
                                 </TableCell>
                                 <TableCell align="right">{row.time}</TableCell>
                                 <TableCell align="right">{row.serviceName}</TableCell>
-                                <TableCell align="right">{row.payment ?
-                                    'Paid' :
-                                    <Link to={`/dashboard/payment/${row._id}`}><button>Pay</button></Link>
-                                }</TableCell>
+                                <TableCell align="right">
+                                    < Link to={`/dashboard/payment/${row._id}`}><button>{row.payment ? 'Paid' : 'Pay'}</button></Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>
+        </div >
     );
 };
 
